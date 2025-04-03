@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/sudosz/amareh/i18n"
+)
 
 func main() {
-	fmt.Println("Hello, World from webapp!")
+	fmt.Println(i18n.T("hello_world", map[string]any{"From": "webapp"}))
 }
