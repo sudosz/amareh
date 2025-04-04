@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	fmt.Println(i18n.T("hello_world", map[string]any{"From": "webapp"}))
+	fmt.Println(i18n.T("hello.from", map[string]any{"name": "webapp"}))
 }

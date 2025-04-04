@@ -1,3 +1,5 @@
 {
-    "hello_world": "Hello, world from {{.From}}!"
+    "welcome": "Welcome!",
+    "greeting": "Hello, {{ .name }}!",
+    "hello.from": "Hello from {{ .name }}!"
 }

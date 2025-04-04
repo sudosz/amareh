@@ -1,3 +1,5 @@
 {
-    "hello_world": "سلام, جهان از {{.From}}!"
+    "welcome": "خوش آمدید!",
+    "greeting": "سلام، {{ .name }}!",
+    "hello.from": "سلام از {{ .name }}!"
 }
