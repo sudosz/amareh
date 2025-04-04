@@ -12,7 +12,7 @@ RUN go mod download
 COPY . .
 
 # Build the application with optimizations
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o bot cmd/bot/main.go
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o amareh-bot cmd/bot/main.go
 
 FROM alpine:latest
 
@@ -22,8 +22,8 @@ RUN adduser -D -h /app appuser
 
 WORKDIR /app
 
-COPY --from=builder /build/bot .
+COPY --from=builder /build/amareh-bot /app/amareh-bot
 
 USER appuser
 
-CMD ["./bot"]
+CMD ["./amareh-bot"]
