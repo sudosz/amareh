@@ -1,29 +1,54 @@
 # Build stage
-FROM golang:1.24.1-alpine AS builder
+ARG GO_VERSION=1.24.1
+FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine3.20 AS builder
 
-RUN apk add --no-cache git build-base
+
+RUN apk add --no-cache git upx
 
 WORKDIR /build
 
 COPY go.mod go.sum ./
-
 RUN go mod download
 
 COPY . .
 
-# Build the application with optimizations
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o amareh-webapp cmd/webapp/main.go
+# Build arguments
+ARG VERSION="dev"
+ARG BUILD_DATE
+ARG COMMIT_SHA
 
-FROM alpine:latest
+# Build optimized binary
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+    go build \
+    -trimpath \
+    -ldflags="-w -s -X main.version=${VERSION} -X main.buildDate=${BUILD_DATE} -X main.commit=${COMMIT_SHA}" \
+    -tags=netgo,osusergo \
+    -o /app/amareh-webapp \
+    cmd/webapp/main.go \
+    && upx --best --lzma /app/amareh-webapp
 
-RUN apk --no-cache add ca-certificates tzdata
+# Runtime stage
+FROM alpine:3.20 AS runtime
 
-RUN adduser -D -h /app appuser
+# Install runtime dependencies
+RUN apk add --no-cache \
+    ca-certificates-cacert \
+    tzdata
+
+# Non-root user with explicit UID/GID
+RUN adduser -D -g "appuser" -h /app -u 10001 appuser
 
 WORKDIR /app
 
-COPY --from=builder /build/amareh-webapp /app/amareh-webapp
+# Copy binary from builder
+COPY --from=builder --chown=appuser:appuser /app/amareh-webapp ./
 
 USER appuser
 
-CMD ["./amareh-webapp"]
+# Container metadata
+LABEL org.opencontainers.image.title="Amareh Webapp" \
+      org.opencontainers.image.description="Persian calculator Telegram WebApp" \
+      org.opencontainers.image.url="https://github.com/sudosz/amareh" \
+      org.opencontainers.image.vendor="sudosz"
+
+ENTRYPOINT ["./amareh-webapp"]
