@@ -1,0 +1,11 @@
+telegram:
+  bot_token: "1234567890:ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+database:
+  host: "localhost"
+  port: 5432
+  username: "user"
+  password: "password"
+  name: "amareh"
+
+log_directory: "logs"
