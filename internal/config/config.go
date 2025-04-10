@@ -107,7 +107,7 @@ func loadFromDirectory(path string) ([]byte, error) {
 			continue
 		}
 		ext := filepath.Ext(entry.Name())
-		if ext != ".yaml" && ext != ".yml" && entry.Name() == "config.example.yml" {
+		if (ext != ".yaml" && ext != ".yml") || entry.Name() == "config.example.yml" {
 			continue
 		}
 
