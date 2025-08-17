@@ -3,7 +3,7 @@ module github.com/sudosz/amareh
 go 1.24.1
 
 require (
-	github.com/go-playground/validator/v10 v10.26.0
+	github.com/go-playground/validator/v10 v10.27.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/nicksnyder/go-i18n/v2 v2.6.0
 	github.com/rs/zerolog v1.34.0
