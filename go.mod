@@ -7,10 +7,10 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/nicksnyder/go-i18n/v2 v2.6.0
 	github.com/rs/zerolog v1.34.0
-	github.com/stretchr/testify v1.10.0
-	go.uber.org/zap v1.27.0
+	github.com/stretchr/testify v1.11.1
+	go.uber.org/zap v1.27.1
 	golang.org/x/exp v0.0.0-20250531010427-b6e5de432a8b
-	golang.org/x/text v0.29.0
+	golang.org/x/text v0.31.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	gopkg.in/yaml.v3 v3.0.1
 )
