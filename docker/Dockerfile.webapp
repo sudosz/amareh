@@ -28,7 +28,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
     && upx --best --lzma /app/amareh-webapp
 
 # Runtime stage
-FROM alpine:3.22 AS runtime
+FROM alpine:3.23 AS runtime
 
 # Install runtime dependencies
 RUN apk add --no-cache \
